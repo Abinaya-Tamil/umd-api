@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Tables</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Database Tables</h1>
+    <ul id="tableList"></ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Replace the following URL with your actual Gist URL
+            const gistUrl = 'https://gist.githubusercontent.com/yourusername/yourgistid/raw/filename.json';
+
+            fetch(gistUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(tables => {
+                    const tableList = document.getElementById('tableList');
+                    tables.forEach(table => {
+                        const listItem = document.createElement('li');
+                        const link = document.createElement('a');
+                        link.href = `https://your-backend-url.com/api/${table}`; // Update to match your deployed backend URL
+                        link.textContent = `Table: ${table} - API URL: /api/${table}`;
+                        listItem.appendChild(link);
+                        tableList.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching table list:', error));
+        });
+    </script>
+</body>
+</html>
